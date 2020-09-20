@@ -136,7 +136,6 @@
         var cart = {};
     } else {
         cart = JSON.parse(localStorage.getItem('cart'));
-        document.getElementById("cart").innerHTML = Object.keys(cart).length;;
         updateCart(cart);
     }
     // If the add to cart button is clicked, add/increment the item
