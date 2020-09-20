@@ -81,7 +81,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-    {% block js %} {% endblock %}
     <script>
       if (localStorage.getItem("cart") == null) {
         var cart = {};
@@ -89,7 +88,7 @@
         cart = JSON.parse(localStorage.getItem("cart"));
         var totalCart = 0;
         for (var it in cart) {
-          totalCart += parseInt(cart[it]);
+          totalCart += parseInt(cart[it][0]);
         }
         document.getElementById("cart").innerHTML = totalCart;
       }
@@ -107,7 +106,7 @@
         {
           popStr = popStr+"<div class='row mx-2'>";
           popStr = popStr+"<b>"+i+") </b>";
-          popStr = popStr +document.getElementById("name"+item).innerHTML+" - Qty: "+cart[item]+ "<br>";
+          popStr = popStr +document.getElementById("name"+item).innerHTML+" - Qty: "+cart[item][0]+ "<br>";
           i=i+1;
           popStr = popStr+"</div>"
         }
@@ -121,8 +120,8 @@
       function updateCart(cart) {
       var sum = 0;
         for (var item in cart) {
-          sum = sum + cart[item];
-          document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+          sum = sum + cart[item][0];
+          document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         document.getElementById('cart').innerHTML = sum;
@@ -142,5 +141,7 @@
         updateCart(cart);
       }
     </script>
+    {% block js %} {% endblock %}
+
   </body>
 </html>
